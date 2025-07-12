@@ -439,7 +439,8 @@ h2:after {
 }
 
 .admin-sidebar {
-  width: 260px;
+  width: 300px; /* Aumentado de 260px */
+  min-width: 250px; /* Largura mínima para garantir legibilidade */
   background: linear-gradient(135deg, #0d3b66 0%, #092947 100%);
   padding: 1.5rem;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
@@ -477,7 +478,7 @@ h2:after {
 }
 
 .admin-nav li {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .admin-nav a {
@@ -485,9 +486,10 @@ h2:after {
   align-items: center;
   color: #c5d4e6;
   text-decoration: none;
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1rem;
   border-radius: 5px;
   transition: all 0.3s;
+  font-size: 1.05rem;
 }
 
 .admin-nav a i {
@@ -642,7 +644,7 @@ h2:after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.6rem 1.2rem;
+  padding: 0.55rem 1rem;
   border-radius: 5px;
   font-weight: 500;
   cursor: pointer;
@@ -695,6 +697,15 @@ h2:after {
 
 .btn-delete:hover {
   background-color: rgba(231, 76, 60, 0.25);
+}
+
+.btn-text {
+  white-space: nowrap; /* Impede quebra de linha */
+}
+
+.btn i, .btn .btn-text {
+  vertical-align: middle;
+  line-height: 1;
 }
 
 .admin-table {
@@ -860,7 +871,21 @@ h2:after {
 }
 
 /* Responsividade */
+@media (max-width: 1200px) {
+  .admin-sidebar {
+    width: 260px;
+  }
+}
+
 @media (max-width: 992px) {
+  .admin-sidebar {
+    width: 240px;
+  }
+  
+  .admin-nav a {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
   .form-row {
     flex-direction: column;
     gap: 0;
@@ -872,9 +897,16 @@ h2:after {
 }
 
 @media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
   .admin-sidebar {
-    width: 70px;
-    padding: 1rem 0.5rem;
+    width: 100%;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: auto;
   }
   
   .admin-logo h2,
@@ -889,9 +921,16 @@ h2:after {
     text-align: center;
   }
   
-  .admin-nav a {
+  /*.admin-nav a {
     justify-content: center;
     padding: 0.8rem;
+  }*/
+
+  .admin-nav a {
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
   }
   
   .admin-nav a i {
@@ -905,6 +944,29 @@ h2:after {
     gap: 15px;
   }
   
+  .admin-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .admin-nav li {
+    margin: 0;
+  }
+
+  .admin-nav li.active a {
+    background-color: rgba(29, 78, 137, 0.7);
+  }
+  
+  .admin-footer {
+    display: none;
+  }
+
+  .btn {
+    width: 100%; /* Ocupa toda a largura disponível */
+    padding: 0.7rem; /* Padding vertical aumentado para melhor toque */
+  }
+
   .card-header {
     flex-direction: column;
     align-items: flex-start;
@@ -913,6 +975,13 @@ h2:after {
   .header-actions {
     width: 100%;
     justify-content: space-between;
+    flex-direction: column; /* Empilha elementos verticalmente */
+    gap: 10px;
+    width: 100%;
+  }
+
+  .search-box {
+    width: 100%;
   }
   
   .search-box input {
@@ -928,6 +997,32 @@ h2:after {
   .admin-table {
     display: block;
     overflow-x: auto;
+  }
+
+    .admin-nav ul {
+    gap: 5px;
+  }
+  
+  .admin-nav a {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .admin-nav a i {
+    margin-right: 5px;
+  }
+
+  .btn {
+    font-size: 0.85rem; /* Fonte menor para caber melhor */
+    gap: 6px; /* Espaço reduzido entre ícone e texto */
+  }
+  
+  .btn i {
+    font-size: 0.8rem; /* Ícones ligeiramente menores */
+  }
+  
+  .btn-text {
+    font-size: 0.9rem; /* Texto um pouco maior para legibilidade */
   }
 }
 

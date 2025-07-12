@@ -1,39 +1,51 @@
 // RefugeeList.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaBriefcase, FaUserTie, FaBuilding, FaMapMarkerAlt, FaClock, FaEdit } from 'react-icons/fa';
+import { FaSearch, FaBriefcase, FaUserCircle, FaBuilding, FaMapMarkerAlt, FaClock, FaEdit } from 'react-icons/fa';
+import RefugeeService from '../services/api';
+
 
 const RefugeeList = () => {
   const [refugees, setRefugees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState('');
 
-  // Simular dados da API
+  // Carregar refugiados da API
   useEffect(() => {
-    const mockData = [
-      { id: 1, name: 'Ahmed Mohamed', country: 'Síria', age: 32, status: 'Ativo', registered: '2023-05-15' },
-      { id: 2, name: 'Maria Silva', country: 'Venezuela', age: 28, status: 'Ativo', registered: '2023-06-22' },
-      { id: 3, name: 'John Doe', country: 'Ucrânia', age: 45, status: 'Inativo', registered: '2023-04-10' },
-      { id: 4, name: 'Fatima Alves', country: 'Angola', age: 29, status: 'Ativo', registered: '2023-07-05' },
-      { id: 5, name: 'Carlos Rodriguez', country: 'Colômbia', age: 37, status: 'Ativo', registered: '2023-03-18' },
-    ];
+    const fetchRefugees = async () => {
+      try {
+        setLoading(true);
+        const data = await RefugeeService.getAll();
+        setRefugees(data);
+        setError('');
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
     
-    setTimeout(() => {
-      setRefugees(mockData);
-      setLoading(false);
-    }, 800);
+    fetchRefugees();
   }, []);
+
+  // Função para deletar um refugiado
+  const deleteRefugee = async (id) => {
+    if(window.confirm('Tem certeza que deseja excluir este refugiado?')) {
+      try {
+        await RefugeeService.delete(id);
+        // Atualizar a lista após exclusão
+        setRefugees(refugees.filter(r => r.id !== id));
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+  };
 
   const filteredRefugees = refugees.filter(refugee => 
     refugee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     refugee.country.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const deleteRefugee = (id) => {
-    if(window.confirm('Tem certeza que deseja excluir este refugiado?')) {
-      setRefugees(refugees.filter(r => r.id !== id));
-    }
-  };
 
   return (
     <div className="admin-card">
@@ -50,11 +62,12 @@ const RefugeeList = () => {
             />
           </div>
           <Link to="/refugees/new" className="btn btn-primary">
-            <i className="fas fa-plus"></i> Novo Refugiado
+            <i className="fas fa-plus"></i>
+            <span className="btn-text">Novo Refugiado</span>
           </Link>
         </div>
       </div>
-      
+      {error && <div className="error-message">{error}</div>}
       {loading ? (
         <div className="loading">
           <i className="fas fa-spinner fa-spin"></i> Carregando dados...

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaSearch, FaBriefcase, FaUserTie, FaBuilding, FaMapMarkerAlt, FaClock, FaEdit } from 'react-icons/fa';
+import axios from 'axios';
+import { FaSearch, FaBriefcase, FaUserCircle, FaBuilding, FaMapMarkerAlt, FaClock, FaEdit } from 'react-icons/fa';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -18,18 +19,39 @@ const Login = () => {
     setLoading(true);
     setError('');
     
-    // Simulação de autenticação
-    setTimeout(() => {
-      if (credentials.email === 'admin@refugio.com' && credentials.password === 'admin123') {
-        // Salva token de autenticação (simulado)
-        localStorage.setItem('authToken', 'authenticated');
+    // Autenticação com a API
+    axios.post('http://localhost:8080/api/auth/login', credentials)
+      .then(response => {
+        // Salva token de autenticação
+        localStorage.setItem('authToken', response.data.token);
+        
+        // Redireciona para área administrativa
         navigate('/admin');
-      } else {
-        setError('Credenciais inválidas. Por favor, tente novamente.');
-      }
-      setLoading(false);
-    }, 1000);
+      })
+      .catch(err => {
+        if (err.response) {
+          setError(err.response.data.message || 'Credenciais inválidas');
+        } else {
+          setError('Erro de conexão com o servidor');
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
+    
+  // Simulação de autenticação
+  //   setTimeout(() => {
+  //     if (credentials.email === 'admin@refugio.com' && credentials.password === 'admin123') {
+  //       // Salva token de autenticação (simulado)
+  //       localStorage.setItem('authToken', 'authenticated');
+  //       navigate('/admin');
+  //     } else {
+  //       setError('Credenciais inválidas. Por favor, tente novamente.');
+  //     }
+  //     setLoading(false);
+  //   }, 1000);
+  // };
 
   return (
     <div className="login-container">

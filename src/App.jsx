@@ -18,7 +18,7 @@ import Login from './pages/Login';
 
 // Componente de rota protegida
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('authToken') === 'authenticated';
+  const isAuthenticated = !!localStorage.getItem('authToken');
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
