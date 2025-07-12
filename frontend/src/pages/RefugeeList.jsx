@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaBriefcase, FaUserCircle, FaBuilding, FaMapMarkerAlt, FaClock, FaEdit } from 'react-icons/fa';
-import RefugeeService from '../services/api';
+
 
 
 const RefugeeList = () => {
@@ -11,41 +11,62 @@ const RefugeeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState('');
 
-  // Carregar refugiados da API
-  useEffect(() => {
-    const fetchRefugees = async () => {
-      try {
-        setLoading(true);
-        const data = await RefugeeService.getAll();
-        setRefugees(data);
-        setError('');
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // // Carregar refugiados da API
+  // useEffect(() => {
+  //   const fetchRefugees = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const data = await RefugeeService.getAll();
+  //       setRefugees(data);
+  //       setError('');
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
     
-    fetchRefugees();
-  }, []);
+  //   fetchRefugees();
+  // }, []);
 
-  // Função para deletar um refugiado
-  const deleteRefugee = async (id) => {
-    if(window.confirm('Tem certeza que deseja excluir este refugiado?')) {
-      try {
-        await RefugeeService.delete(id);
-        // Atualizar a lista após exclusão
-        setRefugees(refugees.filter(r => r.id !== id));
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-  };
+    useEffect(() => {
+    const mockData = [
+      { id: 1, name: 'Ahmed Mohamed', country: 'Síria', birthDate: '13/03/1978', status: 'Ativo', registered: '2023-05-15' },
+      { id: 2, name: 'Maria Silva', country: 'Venezuela', birthDate: '17/04/1991', status: 'Ativo', registered: '2023-06-22' },
+      { id: 3, name: 'John Doe', country: 'Ucrânia', birthDate: '03/09/1982', status: 'Inativo', registered: '2023-04-10' },
+      { id: 4, name: 'Fatima Alves', country: 'Angola', birthDate: '22/07/2001', status: 'Ativo', registered: '2023-07-05' },
+      { id: 5, name: 'Carlos Rodriguez', country: 'Colômbia', birthDate: '17/03/1994', status: 'Ativo', registered: '2023-03-18' },
+    ];
+    
+    setTimeout(() => {
+      setRefugees(mockData);
+      setLoading(false);
+    }, 800);
+  }, []);
 
   const filteredRefugees = refugees.filter(refugee => 
     refugee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     refugee.country.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const deleteRefugee = (id) => {
+    if(window.confirm('Tem certeza que deseja excluir este refugiado?')) {
+      setRefugees(refugees.filter(r => r.id !== id));
+    }
+  };
+
+  // // Função para deletar um refugiado
+  // const deleteRefugee = async (id) => {
+  //   if(window.confirm('Tem certeza que deseja excluir este refugiado?')) {
+  //     try {
+  //       await RefugeeService.delete(id);
+  //       // Atualizar a lista após exclusão
+  //       setRefugees(refugees.filter(r => r.id !== id));
+  //     } catch (err) {
+  //       setError(err.message);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="admin-card">
@@ -79,7 +100,7 @@ const RefugeeList = () => {
               <tr>
                 <th>Nome</th>
                 <th>País de Origem</th>
-                <th>Idade</th>
+                <th>Data de Nascimento</th>
                 <th>Status</th>
                 <th>Data de Cadastro</th>
                 <th>Ações</th>
@@ -96,7 +117,7 @@ const RefugeeList = () => {
                       </div>
                     </td>
                     <td>{refugee.country}</td>
-                    <td>{refugee.age} anos</td>
+                    <td>{refugee.birthDate}</td>
                     <td>
                       <span className={`status-badge ${refugee.status.toLowerCase()}`}>
                         {refugee.status}

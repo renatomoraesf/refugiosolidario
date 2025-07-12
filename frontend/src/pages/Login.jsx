@@ -19,39 +19,39 @@ const Login = () => {
     setLoading(true);
     setError('');
     
-    // Autenticação com a API
-    axios.post('http://localhost:8080/api/auth/login', credentials)
-      .then(response => {
-        // Salva token de autenticação
-        localStorage.setItem('authToken', response.data.token);
+  //   // Autenticação com a API
+  //   axios.post('http://localhost:8080/api/auth/login', credentials)
+  //     .then(response => {
+  //       // Salva token de autenticação
+  //       localStorage.setItem('authToken', response.data.token);
         
-        // Redireciona para área administrativa
-        navigate('/admin');
-      })
-      .catch(err => {
-        if (err.response) {
-          setError(err.response.data.message || 'Credenciais inválidas');
-        } else {
-          setError('Erro de conexão com o servidor');
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-    
-  // Simulação de autenticação
-  //   setTimeout(() => {
-  //     if (credentials.email === 'admin@refugio.com' && credentials.password === 'admin123') {
-  //       // Salva token de autenticação (simulado)
-  //       localStorage.setItem('authToken', 'authenticated');
+  //       // Redireciona para área administrativa
   //       navigate('/admin');
-  //     } else {
-  //       setError('Credenciais inválidas. Por favor, tente novamente.');
-  //     }
-  //     setLoading(false);
-  //   }, 1000);
+  //     })
+  //     .catch(err => {
+  //       if (err.response) {
+  //         setError(err.response.data.message || 'Credenciais inválidas');
+  //       } else {
+  //         setError('Erro de conexão com o servidor');
+  //       }
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
   // };
+    
+  //Simulação de autenticação
+    setTimeout(() => {
+      if (credentials.email === 'admin@refugio.com' && credentials.password === 'admin123') {
+        // Salva token de autenticação (simulado)
+        localStorage.setItem('authToken', 'authenticated');
+        navigate('/admin');
+      } else {
+        setError('Credenciais inválidas. Por favor, tente novamente.');
+      }
+      setLoading(false);
+    }, 1000);
+  };
 
   return (
     <div className="login-container">
