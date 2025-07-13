@@ -1,6 +1,6 @@
 # 📌 Projeto Refugio Solidário
 
-## 📖 Participantes
+## 👨‍🎓 Participantes
 
 Gabriel Nogueira
 Renato Moraes
