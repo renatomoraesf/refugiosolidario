@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { FaSearch, FaBriefcase, FaUserCircle, FaBuilding, FaMapMarkerAlt, FaClock, FaEdit } from 'react-icons/fa';
 
 const Login = () => {
