@@ -3,6 +3,7 @@
 ## 👨‍🎓 Participantes
 
 Gabriel Nogueira
+
 Renato Moraes
 
 ## 📖 Sobre o Projeto
