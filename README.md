@@ -39,6 +39,10 @@ O projeto tem como finalidade resolver o seguinte problema: A criação de um po
 O site do projeto pode ser acessado através do seguinte link:  
 👉 [Refugio Solidário - Educação para todos os povos](https://refugiosolidario.netlify.app/)
 
+CREDENCIAIS PARA ENTRAR NA AREA ADMINISTRATIVA:
+- admin@refugio.com
+- senha: admin123
+    
 ## 📅 Cronograma e Organização
 
 A organização e gestão das atividades foram monitoradas utilizando o **GitHub Projects**, permitindo um acompanhamento eficaz das tarefas e prazos estabelecidos com apoio de cards e suporte no método Kanban.
