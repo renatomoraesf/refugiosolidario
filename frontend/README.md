@@ -5,8 +5,9 @@
 Este repositório contém o desenvolvimento do projeto **Refugio Solidário**, criado pelo **squad 37**. O objetivo do projeto é a criação de um portal dedicado a promover iniciativas de educação para a comunidade de refugiados no Brasil. Nosso foco é criar um espaço de equipes de apoio que abraçam e dão suporte a familias e individuos de vários paises que necessitam buscar oportunidades para crescer e prosperar.
 
 CREDENCIAIS PARA ENTRAR NA AREA ADMINISTRATIVA:
-admin@refugio.com
-senha: admin123
+
+- admin@refugio.com
+- senha: admin123
 
 ## 🚀 Tecnologias Utilizadas
 
